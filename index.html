@@ -1,183 +1,203 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Breaking Love News - Léa & Timéo</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #FFF5F7;
-      color: #333;
-      margin: 0;
-      padding: 0;
-      scroll-behavior: smooth;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Breaking Love News - Léa & Timéo</title>
+<style>
+  /* --- Global --- */
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #FFF5F7;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+  }
 
-    header {
-      background: linear-gradient(90deg, #FFC7D1, #FF6B6B);
-      color: white;
-      padding: 60px 20px 80px 20px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      position: relative;
-      z-index: 2;
-    }
-    header p {
-      font-size: 1.2em;
-      margin-top: 10px;
-      position: relative;
-      z-index: 2;
-    }
+  h2 {
+    color: #FF6B6B;
+    border-bottom: 2px solid #FFC7D1;
+    padding-bottom: 5px;
+  }
 
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-    }
-    section {
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  p {
+    margin: 15px 0;
+    line-height: 1.6;
+  }
 
-    h2 {
-      color: #FF6B6B;
-      border-bottom: 2px solid #FFC7D1;
-      padding-bottom: 5px;
-    }
+  main {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+  }
 
-    .story p, .messages p, .dreams p {
-      margin: 15px 0;
-      line-height: 1.6;
-    }
+  section {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease-out;
+  }
 
-    .photos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
+  section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .photos img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-    }
-    .photos img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(255,105,180,0.5);
-    }
+  /* --- Header --- */
+  header {
+    background: linear-gradient(90deg, #FFC7D1, #FF6B6B);
+    color: white;
+    padding: 60px 20px 80px 20px;
+    text-align: center;
+    position: relative;
+    overflow: visible;
+  }
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #FFC7D1;
-      color: white;
-    }
+  header h1 {
+    font-size: 3em;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+  }
 
-    /* Menu hamburger */
-    .menu-container {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      z-index: 100;
-    }
+  header p {
+    font-size: 1.2em;
+    margin-top: 10px;
+    position: relative;
+    z-index: 2;
+  }
 
-    .menu-icon {
-      font-size: 2em;
-      cursor: pointer;
-      display: none;
-      color: white;
-    }
+  /* --- Menu Hamburger --- */
+  .menu-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 200;
+  }
 
+  .menu-icon {
+    font-size: 2em;
+    cursor: pointer;
+    display: none;
+    color: white;
+  }
+
+  .menu {
+    display: flex;
+    gap: 20px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 200;
+  }
+
+  .menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 10px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+
+  .menu a:hover {
+    background: rgba(255,255,255,0.3);
+    transform: scale(1.1);
+  }
+
+  #menu-toggle { display: none; }
+
+  @media (max-width: 800px) {
     .menu {
-      display: flex;
-      gap: 20px;
-      position: absolute;
-      top: 0;
+      position: fixed;
+      top: 70px;
       right: 0;
-      z-index: 99;
+      background: rgba(255,105,180,0.95);
+      flex-direction: column;
+      width: 220px;
+      display: none;
+      padding: 10px;
+      border-radius: 0 0 15px 15px;
     }
+    #menu-toggle:checked + .menu-icon + .menu {
+      display: flex;
+    }
+    .menu-icon { display: block; }
+  }
 
-    .menu a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 10px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
+  @media (max-width: 600px) {
+    header h1 { font-size: 2em; }
+  }
 
-    .menu a:hover {
-      background: rgba(255,255,255,0.3);
-      transform: scale(1.1);
-    }
+  /* --- Photos --- */
+  .photos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+  }
 
-    #menu-toggle { display: none; }
+  .photos img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
 
-    @media (max-width: 800px) {
-      .menu {
-        position: absolute;
-        top: 70px;
-        right: 0;
-        background: rgba(255,105,180,0.95);
-        flex-direction: column;
-        width: 220px;
-        display: none;
-        padding: 10px;
-        border-radius: 0 0 15px 15px;
-      }
-      #menu-toggle:checked + .menu-icon + .menu {
-        display: flex;
-      }
-      .menu-icon { display: block; }
-    }
+  .photos img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(255,105,180,0.5);
+  }
 
-    @media (max-width: 600px) {
-      header h1 { font-size: 2em; }
-    }
+  /* --- Footer --- */
+  footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #FFC7D1;
+    color: white;
+  }
 
-    /* Cœurs animés */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #FF69B4;
-      transform: rotate(45deg);
-      border-radius: 3px;
-      opacity: 0.7;
-      z-index: 1;
-      animation: float 6s linear infinite;
-    }
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: #FF69B4;
-      border-radius: 50%;
-    }
-    .heart::before { top: -10px; left: 0; }
-    .heart::after { left: 10px; top: 0; }
+  /* --- Cœurs flottants --- */
+  .heart {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #FF69B4;
+    transform: rotate(45deg);
+    border-radius: 3px;
+    opacity: 0.7;
+    z-index: 1;
+    animation: float 6s linear infinite;
+  }
 
-    @keyframes float {
-      0% { transform: translateY(100px) rotate(45deg); opacity: 0; }
-      50% { opacity: 1; }
-      100% { transform: translateY(-150px) rotate(45deg); opacity: 0; }
-    }
-  </style>
+  .heart::before, .heart::after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #FF69B4;
+    border-radius: 50%;
+  }
+  .heart::before { top: -10px; left: 0; }
+  .heart::after { left: 10px; top: 0; }
+
+  @keyframes float {
+    0% { transform: translateY(100px) rotate(45deg); opacity: 0; }
+    50% { opacity: 1; }
+    100% { transform: translateY(-150px) rotate(45deg); opacity: 0; }
+  }
+
+  .hearts-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+  }
+</style>
 </head>
 <body>
 
@@ -198,14 +218,18 @@
   </div>
 
   <!-- Cœurs flottants -->
+  <div class="hearts-container"></div>
+
   <script>
-    for(let i=0;i<20;i++){
+    // Génération des cœurs
+    const heartsContainer = document.querySelector('.hearts-container');
+    for(let i=0;i<25;i++){
       let heart = document.createElement('div');
       heart.classList.add('heart');
       heart.style.left = Math.random()*100 + "vw";
       heart.style.animationDuration = (4 + Math.random()*4) + "s";
       heart.style.width = heart.style.height = (15 + Math.random()*15) + "px";
-      document.querySelector('header').appendChild(heart);
+      heartsContainer.appendChild(heart);
     }
   </script>
 </header>
