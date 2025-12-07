@@ -18,15 +18,15 @@
       overflow-x: hidden;
     }
 
-    /* Cœurs flottants en arrière-plan */
+    /* Cœurs flottants */
     .heart {
       position: absolute;
       width: 20px;
       height: 20px;
-      background: #FF6B6B;
+      background: #FF69B4;
       transform: rotate(45deg);
-      animation: float 8s linear infinite;
-      border-radius: 5px;
+      animation: float 6s linear infinite;
+      border-radius: 3px;
       opacity: 0.7;
     }
     .heart::before, .heart::after {
@@ -34,17 +34,11 @@
       position: absolute;
       width: 20px;
       height: 20px;
-      background: #FF6B6B;
+      background: #FF69B4;
       border-radius: 50%;
     }
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
-    .heart::after {
-      left: 10px;
-      top: 0;
-    }
+    .heart::before { top: -10px; left: 0; }
+    .heart::after { left: 10px; top: 0; }
     @keyframes float {
       0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
       50% { opacity: 1; }
@@ -130,7 +124,6 @@
       color: white;
       font-weight: bold;
       font-size: 1.1em;
-      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
     }
 
     /* Menu hamburger */
@@ -171,9 +164,7 @@
       transform: scale(1.1);
     }
 
-    #menu-toggle {
-      display: none;
-    }
+    #menu-toggle { display: none; }
 
     @media (max-width: 800px) {
       .menu {
@@ -190,18 +181,12 @@
       #menu-toggle:checked + .menu-icon + .menu {
         display: flex;
       }
-      .menu-icon {
-        display: block;
-      }
+      .menu-icon { display: block; }
     }
 
     @media (max-width: 600px) {
-      header h1 {
-        font-size: 2.8em;
-      }
-      h2 {
-        font-size: 1.8em;
-      }
+      header h1 { font-size: 2.8em; }
+      h2 { font-size: 1.8em; }
     }
   </style>
 </head>
@@ -226,11 +211,11 @@
 
 <!-- Cœurs flottants -->
 <script>
-  for(let i=0;i<20;i++){
+  for(let i=0;i<15;i++){
     let heart = document.createElement('div');
     heart.classList.add('heart');
     heart.style.left = Math.random()*100 + "vw";
-    heart.style.animationDuration = (4 + Math.random()*6) + "s";
+    heart.style.animationDuration = (4 + Math.random()*4) + "s";
     heart.style.width = heart.style.height = (15 + Math.random()*15) + "px";
     document.body.appendChild(heart);
   }
@@ -277,7 +262,7 @@
 </footer>
 
 <script>
-  // Animation fade-in au scroll
+  // Fade-in sections au scroll
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
