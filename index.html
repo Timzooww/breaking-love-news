@@ -5,59 +5,202 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Breaking Love News - Léa & Timéo</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Parisienne&family=Roboto:wght@400;700&display=swap');
+
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #FFF5F7;
+      font-family: 'Roboto', sans-serif;
+      background: #FFF0F5;
       color: #333;
       margin: 0;
       padding: 0;
+      scroll-behavior: smooth;
+      position: relative;
+      overflow-x: hidden;
     }
+
+    /* Cœurs flottants en arrière-plan */
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #FF6B6B;
+      transform: rotate(45deg);
+      animation: float 8s linear infinite;
+      border-radius: 5px;
+      opacity: 0.7;
+    }
+    .heart::before, .heart::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: #FF6B6B;
+      border-radius: 50%;
+    }
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+    .heart::after {
+      left: 10px;
+      top: 0;
+    }
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      50% { opacity: 1; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
     header {
-      background: linear-gradient(90deg, #FFC7D1, #FF6B6B);
+      position: relative;
+      background: linear-gradient(120deg, #FFB6C1, #FF69B4);
       color: white;
-      padding: 40px 20px;
+      padding: 50px 20px 80px 20px;
       text-align: center;
+      overflow: hidden;
     }
+
     header h1 {
-      font-size: 3em;
+      font-family: 'Parisienne', cursive;
+      font-size: 3.5em;
       margin: 0;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
     }
+
     header p {
-      font-size: 1.2em;
+      font-size: 1.3em;
       margin-top: 10px;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
     }
+
     main {
-      max-width: 900px;
+      max-width: 1000px;
       margin: 40px auto;
       padding: 0 20px;
     }
+
     section {
-      margin-bottom: 40px;
+      margin-bottom: 50px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
     }
+
+    section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
     h2 {
-      color: #FF6B6B;
-      border-bottom: 2px solid #FFC7D1;
+      color: #FF69B4;
+      border-bottom: 2px solid #FFB6C1;
       padding-bottom: 5px;
+      font-family: 'Parisienne', cursive;
+      font-size: 2em;
     }
-    .story p {
+
+    .story p, .messages p, .dreams p {
       margin: 15px 0;
       line-height: 1.6;
     }
-    .photos img {
-      max-width: 100%;
-      margin: 10px 0;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+
+    .photos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
     }
+
+    .photos img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 6px 15px rgba(255,105,180,0.3);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .photos img:hover {
+      transform: scale(1.08) rotate(-1deg);
+      box-shadow: 0 12px 25px rgba(255,105,180,0.5);
+    }
+
     footer {
       text-align: center;
-      padding: 20px;
-      background-color: #FFC7D1;
+      padding: 25px;
+      background-color: #FFB6C1;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+      text-shadow: 1px 1px 5px rgba(0,0,0,0.2);
+    }
+
+    /* Menu hamburger */
+    .menu-container {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      z-index: 100;
+    }
+
+    .menu-icon {
+      font-size: 2em;
+      cursor: pointer;
+      display: none;
       color: white;
     }
+
+    .menu {
+      display: flex;
+      gap: 25px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 99;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 10px;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .menu a:hover {
+      background: rgba(255,255,255,0.3);
+      transform: scale(1.1);
+    }
+
+    #menu-toggle {
+      display: none;
+    }
+
+    @media (max-width: 800px) {
+      .menu {
+        position: absolute;
+        top: 70px;
+        right: 0;
+        background: rgba(255,105,180,0.95);
+        flex-direction: column;
+        width: 220px;
+        display: none;
+        padding: 10px;
+        border-radius: 0 0 15px 15px;
+      }
+      #menu-toggle:checked + .menu-icon + .menu {
+        display: flex;
+      }
+      .menu-icon {
+        display: block;
+      }
+    }
+
     @media (max-width: 600px) {
       header h1 {
-        font-size: 2em;
+        font-size: 2.8em;
+      }
+      h2 {
+        font-size: 1.8em;
       }
     }
   </style>
@@ -67,40 +210,82 @@
 <header>
   <h1>Léa & Timéo ❤️</h1>
   <p>Breaking Love News : c’est officiel !</p>
+
+  <!-- Menu hamburger -->
+  <div class="menu-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <nav class="menu">
+      <a href="#story">Leur rencontre</a>
+      <a href="#photos">Leurs photos</a>
+      <a href="#messages">Leurs messages</a>
+      <a href="#dreams">Leurs rêves</a>
+    </nav>
+  </div>
 </header>
 
+<!-- Cœurs flottants -->
+<script>
+  for(let i=0;i<20;i++){
+    let heart = document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.animationDuration = (4 + Math.random()*6) + "s";
+    heart.style.width = heart.style.height = (15 + Math.random()*15) + "px";
+    document.body.appendChild(heart);
+  }
+</script>
+
 <main>
-  <section class="story">
-    <h2>Leur histoire</h2>
-    <p>Tout commence grâce à… un ami jaloux. Léa était au lycée avec un très bon ami de Timéo. Un jour, elle lui dit qu’elle trouve Timéo mignon et qu’elle aimerait lui parler. Réaction de l’ami : comme si Timéo venait lui voler son crush. Le roi de la jalousie.</p>
-    <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker. Un move légendaire.</p>
-    <p>Timéo répond immédiatement. Et ensuite… ils ne se sont plus lâchés de la soirée. Ils se sont appelés. Ils n’ont presque pas dormi. Et pour Timéo, c’était probablement la plus belle nuit de sa vie.</p>
-    <p>Le lendemain, Léa part au scouts pour le week-end. Pour Timéo ? Le pire week-end de sa vie. Ils se connaissent depuis moins d’une journée, mais il ne pense qu’à une chose : qu’elle revienne.</p>
-    <p>Et quand elle revient ? Cinéma, sorties, moments incroyables, et chaque fois ils se rapprochent encore plus.</p>
-    <p>Le <strong>3 octobre 2025</strong>, Léa et Timéo officialisent leur couple. Aujourd’hui, cela fait <strong>2 mois et 4 jours</strong> et ils sont littéralement inséparables ❤️</p>
+  <section id="story" class="story">
+    <h2>Leur rencontre</h2>
+    <p>Ou ? sur Insta</p>
   </section>
 
-  <section class="photos">
-    <h2>Photos et souvenirs</h2>
-    <p>Voici quelques photos de Léa & Timéo :</p>
+  <section id="photos" class="photos">
+    <h2>Leurs photos</h2>
+    <img src="IMG_5282.png" alt="Photo 1">
+    <img src="IMG_5283.jpg" alt="Photo 2">
+    <img src="IMG_5463.jpg" alt="Photo 3">
+    <img src="IMG_5510.jpg" alt="Photo 4">
+    <img src="IMG_5625.jpg" alt="Photo 5">
+    <img src="IMG_5726.jpg" alt="Photo 6">
+    <img src="IMG_5810.jpg" alt="Photo 7">
+    <img src="IMG_5812.jpg" alt="Photo 8">
+    <img src="IMG_5849.png" alt="Photo 9">
+    <img src="IMG_5949.jpg" alt="Photo 10">
+    <img src="IMG_5954.jpg" alt="Photo 11">
+    <img src="IMG_5967.jpg" alt="Photo 12">
+    <img src="IMG_5987.jpg" alt="Photo 13">
+    <img src="da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 14">
+  </section>
 
-    <img src="IMG_5967.jpg" alt="Photo 1">
-    <img src="IMG_5726.jpg" alt="Photo 2">
-    <img src="IMG_5625.jpg" alt="Photo 3">
-    <img src="da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 4">
- 
-   </section>
+  <section id="messages" class="messages">
+    <h2>Leurs messages</h2>
+    <p><strong>Timéo :</strong> "Promis, je prendrai soin de Léa. Merci beaucoup de l'avoir rendue telle qu'elle est aujourd'hui, c'est une fille en or."</p>
+    <p><strong>Léa :</strong> "L'amour, c'est comme la tequila : une fois que tu y as goûté, tu ne peux plus t'en passer."</p>
+  </section>
 
-  <section class="announcement">
-    <h2>L’annonce officielle</h2>
-    <p>C’est officiel : Léa & Timéo sont en couple !</p>
-    <p>Pas de suspense. Pas de cliffhanger. Juste deux personnes qui se sont trouvées et qui avaient envie de l’annoncer de façon spéciale à la famille.</p>
+  <section id="dreams" class="dreams">
+    <h2>Leurs rêves</h2>
+    <p>Avoir un mariage de mafieux, 2 enfants, voitures de luxe, un château, un malinois, faire énormément de voyages.</p>
   </section>
 </main>
 
 <footer>
   Merci d’être là pour partager ce moment ❤️
 </footer>
+
+<script>
+  // Animation fade-in au scroll
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
+</script>
 
 </body>
 </html>
