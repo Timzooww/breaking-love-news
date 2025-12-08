@@ -13,8 +13,6 @@
       background-color:#FFF5F7;
       color:#333;
       overflow-x:hidden;
-      max-width:1000px; /* largeur max pour PC */
-      margin:0 auto; /* centre le site */
       position:relative;
     }
 
@@ -42,7 +40,7 @@
       position:fixed;
       right:20px;
       top:20px;
-      font-size:28px;
+      font-size:32px;
       cursor:pointer;
       z-index:1000;
       background:#FF6B6B;
@@ -68,7 +66,8 @@
     }
 
     /* --- SECTIONS --- */
-    section { margin:40px auto; padding:20px; }
+    section { margin:40px auto; padding:20px; max-width:900px; opacity:0; transform:translateY(30px); transition:0.8s ease; }
+    section.visible { opacity:1; transform:translateY(0); }
     section h2 { color:#FF6B6B; border-left:5px solid #FF6B6B; padding-left:10px; margin-bottom:15px; font-size:1.8rem; }
     section h3 { color:#FF6B6B; margin-top:20px; }
     p { line-height:1.6; margin-bottom:12px; }
@@ -76,17 +75,35 @@
     /* --- GRILLES IMAGES --- */
     .photo-grid, .prefs-grid {
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+      grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
       gap:15px;
     }
     .photo-grid img, .prefs-grid img { width:100%; height:auto; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12); }
 
     /* --- FOOTER --- */
     footer { text-align:center; padding:25px; background:#FF9EB4; color:white; margin-top:40px; }
+
+    /* --- MEDIA QUERIES --- */
+    @media (max-width:600px){
+      header h1 { font-size:2rem; }
+      .photo-grid, .prefs-grid { grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); }
+    }
   </style>
 
   <script>
-    function toggleMenu() { document.querySelector("nav").classList.toggle("open"); }
+    function toggleMenu(){ document.querySelector("nav").classList.toggle("open"); }
+
+    // Fade-in sections on scroll
+    window.addEventListener('scroll', () => {
+      const sections = document.querySelectorAll('section');
+      const trigger = window.innerHeight / 1.2;
+      sections.forEach(section => {
+        const sectionTop = section.getBoundingClientRect().top;
+        if(sectionTop < trigger){
+          section.classList.add('visible');
+        }
+      });
+    });
   </script>
 </head>
 
