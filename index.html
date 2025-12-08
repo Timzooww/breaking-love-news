@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Léa & Timéo – Breaking Love News</title>
+  <title>Léa & Timéo ❤️ Breaking Love News</title>
 
   <style>
-    /* --- RESET --- */
+    /* --- RESET & BASE --- */
     * {
       margin: 0;
       padding: 0;
@@ -14,13 +14,14 @@
     }
 
     body {
-      font-family: "Segoe UI", sans-serif;
-      background: #FFF5F7;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #FFF5F7;
       color: #333;
       overflow-x: hidden;
+      position: relative;
     }
 
-    /* --- BACKGROUND HEARTS --- */
+    /* --- ARRIÈRE-PLAN COEURS --- */
     .hearts {
       position: fixed;
       top: 0;
@@ -41,7 +42,7 @@
     }
 
     @keyframes float {
-      0% { transform: translateY(0) rotate(0); opacity: 0.5; }
+      0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
       100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
     }
 
@@ -62,7 +63,7 @@
       font-size: 1.2rem;
     }
 
-    /* --- NAV MOBILE --- */
+    /* --- MENU --- */
     .menu-btn {
       position: fixed;
       right: 20px;
@@ -70,6 +71,11 @@
       font-size: 32px;
       cursor: pointer;
       z-index: 1000;
+      background: #FF6B6B;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 12px;
     }
 
     nav {
@@ -114,19 +120,24 @@
       font-size: 1.8rem;
     }
 
+    section h3 {
+      color: #FF6B6B;
+      margin-top: 20px;
+    }
+
     p {
       line-height: 1.6;
       margin-bottom: 12px;
     }
 
-    /* --- PHOTOS RESPONSIVES --- */
-    .photo-grid {
+    /* --- PHOTOS & GRILLE --- */
+    .photo-grid, .prefs-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
       gap: 15px;
     }
 
-    .photo-grid img {
+    .photo-grid img, .prefs-grid img {
       width: 100%;
       height: auto;
       border-radius: 14px;
@@ -148,29 +159,29 @@
       document.querySelector("nav").classList.toggle("open");
     }
   </script>
-
 </head>
+
 <body>
 
-  <!-- BACKGROUND HEARTS -->
+  <!-- COEURS FOND -->
   <div class="hearts">
     <span style="left:10%; animation-delay:0s;">❤️</span>
-    <span style="left:30%; animation-delay:1s;">💖</span>
-    <span style="left:50%; animation-delay:2s;">💕</span>
-    <span style="left:70%; animation-delay:0.5s;">💞</span>
-    <span style="left:90%; animation-delay:1.5s;">💗</span>
+    <span style="left:20%; animation-delay:1s;">💖</span>
+    <span style="left:35%; animation-delay:2s;">💕</span>
+    <span style="left:50%; animation-delay:0.5s;">💞</span>
+    <span style="left:65%; animation-delay:1.2s;">💗</span>
+    <span style="left:80%; animation-delay:0.7s;">❤️</span>
+    <span style="left:90%; animation-delay:1.5s;">💖</span>
   </div>
 
-  <!-- MENU BUTTON -->
-  <div class="menu-btn" onclick="toggleMenu()">☰</div>
-
-  <!-- NAV -->
+  <!-- MENU -->
+  <button class="menu-btn" onclick="toggleMenu()">☰</button>
   <nav>
     <a href="#histoire">Leur rencontre</a>
     <a href="#photos">Leurs photos</a>
     <a href="#artistes">Artistes préférés</a>
     <a href="#youtube">Youtubeurs préférés</a>
-    <a href="#spotify">Playlists Spotify</a>
+    <a href="#spotify">Playlist Spotify</a>
     <a href="#messages">Leurs messages</a>
     <a href="#reves">Leurs rêves</a>
     <a href="#citation">Citation</a>
@@ -183,105 +194,100 @@
     <p>Breaking Love News : c’est officiel !</p>
   </header>
 
-  <!-- SECTION : LEUR HISTOIRE -->
+  <!-- HISTOIRE -->
   <section id="histoire">
     <h2>Leur rencontre</h2>
-    <p>Tout commence grâce à un ami jaloux...</p>
-    <p>Léa envoie une image du Joker, Timéo répond direct, ils ne se lâchent plus.</p>
-    <p>Le lendemain, Léa part aux scouts : le pire week-end de Timéo.</p>
-    <p>Ensuite : cinéma, sorties, nuits blanches, discussions infinies.</p>
-    <p>Le <strong>3 octobre 2025</strong>, ils officialisent leur couple.</p>
+    <p>Tout commence grâce à un ami jaloux. Léa était au lycée avec un très bon ami de Timéo. Un jour, elle lui dit qu’elle trouve Timéo mignon et qu’elle aimerait lui parler. Réaction de l’ami : comme si Timéo venait lui voler son crush. Le roi de la jalousie.</p>
+    <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker. Un move légendaire.</p>
+    <p>Timéo répond immédiatement. Et ensuite… ils ne se sont plus lâchés de la soirée. Ils se sont appelés. Ils n’ont presque pas dormi. Et pour Timéo, c’était probablement la plus belle nuit de sa vie.</p>
+    <p>Le lendemain, Léa part au scouts pour le week-end. Pour Timéo ? Le pire week-end de sa vie. Ils se connaissent depuis moins d’une journée, mais il ne pense qu’à une chose : qu’elle revienne.</p>
+    <p>Et quand elle revient ? Cinéma, sorties, moments incroyables, et chaque fois ils se rapprochent encore plus.</p>
+    <p>Le <strong>3 octobre 2025</strong>, Léa et Timéo officialisent leur couple. Aujourd’hui, cela fait <strong>2 mois et 4 jours</strong> et ils sont littéralement inséparables ❤️</p>
   </section>
 
-  <!-- SECTION : PHOTOS -->
+  <!-- PHOTOS -->
   <section id="photos">
     <h2>Leurs photos</h2>
     <div class="photo-grid">
-      <img src="images/IMG_5282.png">
-      <img src="images/IMG_5283.jpg">
-      <img src="images/IMG_5463.jpg">
-      <img src="images/IMG_5510.jpg">
-      <img src="images/IMG_5625.jpg">
-      <img src="images/IMG_5726.jpg">
-      <img src="images/IMG_5810.jpg">
-      <img src="images/IMG_5812.jpg">
-      <img src="images/IMG_5849.png">
-      <img src="images/IMG_5949.jpg">
-      <img src="images/IMG_5954.jpg">
-      <img src="images/IMG_5967.jpg">
-      <img src="images/IMG_5987.jpg">
-      <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg">
+      <img src="images/IMG_5282.png" alt="">
+      <img src="images/IMG_5283.jpg" alt="">
+      <img src="images/IMG_5463.jpg" alt="">
+      <img src="images/IMG_5510.jpg" alt="">
+      <img src="images/IMG_5625.jpg" alt="">
+      <img src="images/IMG_5726.jpg" alt="">
+      <img src="images/IMG_5810.jpg" alt="">
+      <img src="images/IMG_5812.jpg" alt="">
+      <img src="images/IMG_5849.png" alt="">
+      <img src="images/IMG_5949.jpg" alt="">
+      <img src="images/IMG_5954.jpg" alt="">
+      <img src="images/IMG_5967.jpg" alt="">
+      <img src="images/IMG_5987.jpg" alt="">
+      <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="">
     </div>
   </section>
 
-  <!-- SECTION : ARTISTES -->
+  <!-- ARTISTES PREFERES -->
   <section id="artistes">
     <h2>Artistes préférés</h2>
-
     <h3>Timéo</h3>
-    <img src="images/IMG_5990.jpg" class="wide">
-    <img src="images/IMG_5944.jpg" class="wide">
-
+    <div class="prefs-grid">
+      <img src="images/IMG_5944.png" alt="Artiste préféré de Timéo 1">
+      <img src="images/IMG_5990.jpg" alt="Artiste préféré de Timéo 2">
+    </div>
     <h3>Léa</h3>
-    <img src="images/IMG_5991.jpg" class="wide">
-    <img src="images/IMG_5992.jpg" class="wide">
+    <div class="prefs-grid">
+      <img src="images/IMG_5991.jpg" alt="Artiste préféré de Léa 1">
+      <img src="images/IMG_5992.jpg" alt="Artiste préféré de Léa 2">
+    </div>
   </section>
 
-  <!-- SECTION : YOUTUBEURS -->
+  <!-- YOUTUBEURS PREFERES -->
   <section id="youtube">
     <h2>Youtubeurs préférés</h2>
-
     <h3>Timéo</h3>
-    <img src="images/IMG_5989.jpg" class="wide">
-
+    <img src="images/IMG_5989.png" alt="Youtubeurs préférés de Timéo">
     <h3>Léa</h3>
-    <img src="images/IMG_5993.jpg" class="wide">
+    <img src="images/IMG_5993.jpg" alt="Youtubeurs préférés de Léa">
   </section>
 
-  <!-- SECTION : SPOTIFY -->
+  <!-- SPOTIFY -->
   <section id="spotify">
-    <h2>Leurs playlists Spotify</h2>
-
-    <p><strong>Playlist officielle :</strong></p>
+    <h2>Playlist Spotify</h2>
     <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
   </section>
 
-  <!-- SECTION : MESSAGES -->
+  <!-- MESSAGES -->
   <section id="messages">
     <h2>Leurs messages</h2>
-    <p><strong>Message de Timéo :</strong></p>
-    <p>“Promis je prendrai soin de Léa, merci beaucoup de l’avoir rendue comme elle est aujourd’hui. C’est une fille en or.”</p>
-
-    <p><strong>Message de Léa :</strong></p>
-    <p>“Je serai toujours là, supportrice numéro 1 de Timéo. Je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️”</p>
+    <p><strong>Message de Timéo :</strong> “Promis je prendrai soin de Léa, merci beaucoup de l’avoir rendue comme elle est aujourd’hui. C’est une fille en or.”</p>
+    <p><strong>Message de Léa :</strong> “Je serai toujours là, supportrice numéro 1 de Timéo. Je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️”</p>
   </section>
 
-  <!-- SECTION : REVES -->
+  <!-- REVES -->
   <section id="reves">
     <h2>Leurs rêves</h2>
-    <p>• Un mariage de mafieux</p>
-    <p>• Deux enfants</p>
-    <p>• Une voiture de luxe</p>
+    <p>• Mariage de mafieux</p>
+    <p>• 2 enfants</p>
+    <p>• Voitures de luxe</p>
     <p>• Un château</p>
     <p>• Un malinois</p>
     <p>• Faire énormément de voyages</p>
   </section>
 
-  <!-- SECTION : CITATION -->
+  <!-- CITATION -->
   <section id="citation">
     <h2>Citation</h2>
     <p>“Ce que Dieu a uni, que personne ne le sépare.”</p>
   </section>
 
-  <!-- SECTION : ANNONCE -->
+  <!-- ANNONCE OFFICIELLE -->
   <section id="officiel">
     <h2>L’annonce officielle</h2>
-    <p>C’est officiel : Léa & Timéo sont en couple !</p>
+    <p>C’est officiel : Léa & Timéo sont en couple ! ❤️</p>
   </section>
 
   <footer>
-    Fait avec ❤️ par Timéo, pour Léa.
+    Merci d’être là pour partager ce moment ❤️
   </footer>
-
 </body>
 </html>
