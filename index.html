@@ -1,187 +1,202 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Léa & Timéo ❤️</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Léa & Timéo – Breaking Love News</title>
 
   <style>
-    body {
+    /* --- RESET --- */
+    * {
       margin: 0;
       padding: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #fff5f7;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #FFF5F7;
       color: #333;
-      position: relative;
       overflow-x: hidden;
     }
 
-    /* ❤️ Arrière-plan avec cœurs */
-    body::before {
-      content: "";
+    /* --- BACKGROUND HEARTS --- */
+    .hearts {
       position: fixed;
-      inset: 0;
-      background-image: url("images/background-hearts.png");
-      background-size: 250px;
-      background-repeat: repeat;
-      opacity: 0.15;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
       z-index: -1;
+      overflow: hidden;
     }
 
+    .hearts span {
+      position: absolute;
+      display: block;
+      font-size: 24px;
+      animation: float 6s linear infinite;
+      opacity: 0.5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0); opacity: 0.5; }
+      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+    }
+
+    /* --- HEADER --- */
     header {
-      background: linear-gradient(90deg, #ffc7d1, #ff6b6b);
-      color: white;
       text-align: center;
-      padding: 50px 20px;
+      padding: 60px 20px;
+      background: linear-gradient(90deg, #FF9EB4, #FF6B6B);
+      color: white;
     }
 
     header h1 {
-      font-size: 3em;
-      margin: 0;
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+    }
+
+    /* --- NAV MOBILE --- */
+    .menu-btn {
+      position: fixed;
+      right: 20px;
+      top: 20px;
+      font-size: 32px;
+      cursor: pointer;
+      z-index: 1000;
     }
 
     nav {
       position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 1000;
-    }
-
-    nav button {
-      font-size: 28px;
-      padding: 10px;
-      border: none;
-      background: #ff6b6b;
-      color: white;
-      border-radius: 10px;
-      cursor: pointer;
-    }
-
-    #menu {
-      display: none;
-      position: fixed;
-      top: 70px;
-      right: 20px;
+      top: 0;
+      right: -70%;
+      width: 70%;
+      height: 100%;
       background: white;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      padding: 15px;
-      z-index: 1000;
+      padding-top: 80px;
+      transition: 0.3s;
+      box-shadow: -3px 0 10px rgba(0,0,0,0.1);
+      z-index: 999;
     }
 
-    #menu a {
+    nav.open {
+      right: 0;
+    }
+
+    nav a {
       display: block;
-      margin: 10px 0;
+      padding: 18px 25px;
+      font-size: 1.1rem;
       text-decoration: none;
-      color: #ff6b6b;
+      color: #FF6B6B;
       font-weight: bold;
+      border-bottom: 1px solid #FFE3E7;
     }
 
-    main {
+    /* --- SECTIONS --- */
+    section {
       max-width: 900px;
       margin: 40px auto;
-      padding: 0 20px;
+      padding: 20px;
     }
 
-    h2 {
-      color: #ff6b6b;
-      border-bottom: 2px solid #ffc7d1;
-      padding-bottom: 5px;
-      margin-top: 50px;
+    section h2 {
+      color: #FF6B6B;
+      border-left: 5px solid #FF6B6B;
+      padding-left: 10px;
+      margin-bottom: 15px;
+      font-size: 1.8rem;
     }
 
-    .photos img, .preferences img {
-      width: 100%;
-      border-radius: 12px;
-      margin: 10px 0;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    p {
+      line-height: 1.6;
+      margin-bottom: 12px;
     }
 
-    .preferences {
+    /* --- PHOTOS RESPONSIVES --- */
+    .photo-grid {
       display: grid;
-      gap: 20px;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 15px;
     }
 
-    .preferences p {
-      text-align: center;
-      font-weight: bold;
-      color: #ff577a;
+    .photo-grid img {
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
     }
 
+    /* --- FOOTER --- */
     footer {
       text-align: center;
-      padding: 20px;
-      background-color: #ffc7d1;
+      padding: 25px;
+      background: #FF9EB4;
       color: white;
-      margin-top: 50px;
-    }
-
-    /* Effet apparition */
-    .fade {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: 0.7s;
-    }
-
-    .visible {
-      opacity: 1;
-      transform: translateY(0);
+      margin-top: 40px;
     }
   </style>
 
   <script>
     function toggleMenu() {
-      const menu = document.getElementById("menu");
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
+      document.querySelector("nav").classList.toggle("open");
     }
-
-    // Animation scroll
-    document.addEventListener("scroll", () => {
-      document.querySelectorAll(".fade").forEach(el => {
-        const top = el.getBoundingClientRect().top;
-        if (top < window.innerHeight - 80) {
-          el.classList.add("visible");
-        }
-      });
-    });
   </script>
-</head>
 
+</head>
 <body>
+
+  <!-- BACKGROUND HEARTS -->
+  <div class="hearts">
+    <span style="left:10%; animation-delay:0s;">❤️</span>
+    <span style="left:30%; animation-delay:1s;">💖</span>
+    <span style="left:50%; animation-delay:2s;">💕</span>
+    <span style="left:70%; animation-delay:0.5s;">💞</span>
+    <span style="left:90%; animation-delay:1.5s;">💗</span>
+  </div>
+
+  <!-- MENU BUTTON -->
+  <div class="menu-btn" onclick="toggleMenu()">☰</div>
+
+  <!-- NAV -->
   <nav>
-    <button onclick="toggleMenu()">☰</button>
-    <div id="menu">
-      <a href="#story">Leur rencontre</a>
-      <a href="#photos">Leurs photos</a>
-      <a href="#preferences">Leurs préférences</a>
-      <a href="#insta">Leurs Instagram</a>
-      <a href="#music">Playlist Spotify</a>
-      <a href="#messages">Leurs messages</a>
-      <a href="#reves">Leurs rêves</a>
-      <a href="#citation">Citation</a>
-      <a href="#annonce">Annonce officielle</a>
-    </div>
+    <a href="#histoire">Leur rencontre</a>
+    <a href="#photos">Leurs photos</a>
+    <a href="#artistes">Artistes préférés</a>
+    <a href="#youtube">Youtubeurs préférés</a>
+    <a href="#spotify">Playlists Spotify</a>
+    <a href="#messages">Leurs messages</a>
+    <a href="#reves">Leurs rêves</a>
+    <a href="#citation">Citation</a>
+    <a href="#officiel">Annonce officielle</a>
   </nav>
 
+  <!-- HEADER -->
   <header>
     <h1>Léa & Timéo ❤️</h1>
     <p>Breaking Love News : c’est officiel !</p>
   </header>
 
-  <main>
+  <!-- SECTION : LEUR HISTOIRE -->
+  <section id="histoire">
+    <h2>Leur rencontre</h2>
+    <p>Tout commence grâce à un ami jaloux...</p>
+    <p>Léa envoie une image du Joker, Timéo répond direct, ils ne se lâchent plus.</p>
+    <p>Le lendemain, Léa part aux scouts : le pire week-end de Timéo.</p>
+    <p>Ensuite : cinéma, sorties, nuits blanches, discussions infinies.</p>
+    <p>Le <strong>3 octobre 2025</strong>, ils officialisent leur couple.</p>
+  </section>
 
-    <!-- 💕 LEUR RENCONTRE -->
-    <section id="story" class="fade">
-      <h2>Leur histoire</h2>
-      <p>Tout commence grâce à… un ami jaloux. Léa était au lycée avec un très bon ami de Timéo...</p>
-      <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker.</p>
-      <p>Timéo répond immédiatement...</p>
-      <p>Le <strong>3 octobre 2025</strong>, ils officialisent leur couple ❤️</p>
-    </section>
-
-    <!-- 📸 PHOTOS -->
-    <section id="photos" class="fade">
-      <h2>Photos et souvenirs</h2>
+  <!-- SECTION : PHOTOS -->
+  <section id="photos">
+    <h2>Leurs photos</h2>
+    <div class="photo-grid">
       <img src="images/IMG_5282.png">
       <img src="images/IMG_5283.jpg">
       <img src="images/IMG_5463.jpg">
@@ -196,89 +211,77 @@
       <img src="images/IMG_5967.jpg">
       <img src="images/IMG_5987.jpg">
       <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg">
-    </section>
+    </div>
+  </section>
 
-    <!-- ⭐ PREFERENCES -->
-    <section id="preferences" class="fade">
-      <h2>Youtubeurs préférés</h2>
-      <div class="preferences">
-        <div>
-          <img src="images/IMG_5989.png">
-          <p>Youtubeurs préférés de Timéo</p>
-        </div>
-        <div>
-          <img src="images/IMG_5993.jpg">
-          <p>Youtubeurs préférés de Léa</p>
-        </div>
-      </div>
+  <!-- SECTION : ARTISTES -->
+  <section id="artistes">
+    <h2>Artistes préférés</h2>
 
-      <h2>Artistes Spotify préférés</h2>
-      <div class="preferences">
-        <div>
-          <img src="images/IMG_5944.png">
-          <p>Artiste préféré de Timéo (1)</p>
-        </div>
-        <div>
-          <img src="images/IMG_5990.jpg">
-          <p>Artiste préféré de Timéo (2)</p>
-        </div>
-        <div>
-          <img src="images/IMG_5991.jpg">
-          <p>Artiste préféré de Léa (1)</p>
-        </div>
-        <div>
-          <img src="images/IMG_5992.jpg">
-          <p>Artiste préféré de Léa (2)</p>
-        </div>
-      </div>
-    </section>
+    <h3>Timéo</h3>
+    <img src="images/IMG_5990.jpg" class="wide">
+    <img src="images/IMG_5944.jpg" class="wide">
 
-    <!-- 📱 INSTAGRAM -->
-    <section id="insta" class="fade">
-      <h2>Nos Instagram</h2>
-      <p><a href="https://www.instagram.com/t_idd._/" target="_blank">Instagram de Timéo</a></p>
-      <p><a href="https://www.instagram.com/l12leaa/" target="_blank">Instagram de Léa</a></p>
-    </section>
+    <h3>Léa</h3>
+    <img src="images/IMG_5991.jpg" class="wide">
+    <img src="images/IMG_5992.jpg" class="wide">
+  </section>
 
-    <!-- 🎵 PLAYLIST -->
-    <section id="music" class="fade">
-      <h2>Notre playlist Spotify</h2>
-      <iframe style="border-radius:12px"
-        src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator"
-        width="100%" height="380" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media"></iframe>
-    </section>
+  <!-- SECTION : YOUTUBEURS -->
+  <section id="youtube">
+    <h2>Youtubeurs préférés</h2>
 
-    <!-- 💌 MESSAGES -->
-    <section id="messages" class="fade">
-      <h2>Leurs messages</h2>
-      <p><strong>Message de Timéo :</strong>  
-        “Promis, je prendrai soin de Léa. Merci de l’avoir rendue comme elle est aujourd’hui : une fille en or.”</p>
+    <h3>Timéo</h3>
+    <img src="images/IMG_5989.jpg" class="wide">
 
-      <p><strong>Message de Léa :</strong>  
-        “Je serai toujours la supportrice numéro 1 de Timéo, je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️”</p>
-    </section>
+    <h3>Léa</h3>
+    <img src="images/IMG_5993.jpg" class="wide">
+  </section>
 
-    <!-- 🌙 RÊVES -->
-    <section id="reves" class="fade">
-      <h2>Leurs rêves</h2>
-      <p>Mariage de mafieux, 2 enfants, voitures de luxe, un château, un malinois, et voyager dans le monde entier.</p>
-    </section>
+  <!-- SECTION : SPOTIFY -->
+  <section id="spotify">
+    <h2>Leurs playlists Spotify</h2>
 
-    <!-- ✨ CITATION -->
-    <section id="citation" class="fade">
-      <h2>Citation</h2>
-      <p>“Love is the closest thing we have to magic.”</p>
-    </section>
+    <p><strong>Playlist officielle :</strong></p>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
+  </section>
 
-    <!-- 📢 ANNONCE -->
-    <section id="annonce" class="fade">
-      <h2>L’annonce officielle</h2>
-      <p>C’est officiel : Léa & Timéo sont en couple ❤️</p>
-    </section>
+  <!-- SECTION : MESSAGES -->
+  <section id="messages">
+    <h2>Leurs messages</h2>
+    <p><strong>Message de Timéo :</strong></p>
+    <p>“Promis je prendrai soin de Léa, merci beaucoup de l’avoir rendue comme elle est aujourd’hui. C’est une fille en or.”</p>
 
-  </main>
+    <p><strong>Message de Léa :</strong></p>
+    <p>“Je serai toujours là, supportrice numéro 1 de Timéo. Je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️”</p>
+  </section>
 
-  <footer>Merci d’être là pour partager ce moment ❤️</footer>
+  <!-- SECTION : REVES -->
+  <section id="reves">
+    <h2>Leurs rêves</h2>
+    <p>• Un mariage de mafieux</p>
+    <p>• Deux enfants</p>
+    <p>• Une voiture de luxe</p>
+    <p>• Un château</p>
+    <p>• Un malinois</p>
+    <p>• Faire énormément de voyages</p>
+  </section>
+
+  <!-- SECTION : CITATION -->
+  <section id="citation">
+    <h2>Citation</h2>
+    <p>“Ce que Dieu a uni, que personne ne le sépare.”</p>
+  </section>
+
+  <!-- SECTION : ANNONCE -->
+  <section id="officiel">
+    <h2>L’annonce officielle</h2>
+    <p>C’est officiel : Léa & Timéo sont en couple !</p>
+  </section>
+
+  <footer>
+    Fait avec ❤️ par Timéo, pour Léa.
+  </footer>
 
 </body>
 </html>
