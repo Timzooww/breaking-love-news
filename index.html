@@ -23,273 +23,162 @@
       position: relative;
       z-index: 2;
     }
-    header h1 {
-      font-size: 3em;
-      margin: 0;
-      position: relative;
-      z-index: 2;
-    }
-    header p {
-      font-size: 1.2em;
-      margin-top: 10px;
-      position: relative;
-      z-index: 2;
-    }
-    main {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
-      position: relative;
-      z-index: 1;
-    }
-    h2 {
-      color: #FF6B6B;
-      border-bottom: 2px solid #FFC7D1;
-      padding-bottom: 5px;
-    }
-    p {
-      margin: 15px 0;
-      line-height: 1.6;
-    }
-    section {
-      margin-bottom: 40px;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease-out;
-    }
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .photos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 15px;
-    }
-    .photos img {
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
-      position: relative;
-      z-index: 1;
-    }
-    .photos img:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 20px rgba(255,105,180,0.5);
-    }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #FFC7D1;
-      color: white;
-      position: relative;
-      z-index: 1;
-    }
+    header h1 { font-size: 3em; margin: 0; z-index: 2; }
+    header p { font-size: 1.2em; margin-top: 10px; z-index: 2; }
+    main { max-width: 900px; margin: 40px auto; padding: 0 20px; position: relative; z-index: 1; }
+    h2 { color: #FF6B6B; border-bottom: 2px solid #FFC7D1; padding-bottom: 5px; }
+    p { margin: 15px 0; line-height: 1.6; }
+    section { margin-bottom: 40px; opacity: 0; transform: translateY(30px); transition: all 0.8s ease-out; }
+    section.visible { opacity: 1; transform: translateY(0); }
+
+    /* Photos et préférences */
+    .photos, .preferences { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
+    .photos img, .preferences img { width: 100%; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.3s, box-shadow 0.3s; }
+    .photos img:hover, .preferences img:hover { transform: scale(1.05); box-shadow: 0 8px 20px rgba(255,105,180,0.5); }
+
+    footer { text-align: center; padding: 20px; background-color: #FFC7D1; color: white; position: relative; z-index: 1; }
 
     /* Menu hamburger */
-    .menu-container {
-      position: fixed;
-      top: 20px;
-      right: 20px;
-      z-index: 200;
-    }
-    .menu-icon {
-      font-size: 2em;
-      cursor: pointer;
-      display: none;
-      color: white;
-    }
-    .menu {
-      display: flex;
-      gap: 20px;
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 200;
-    }
-    .menu a {
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-      padding: 5px 10px;
-      border-radius: 10px;
-      transition: background 0.3s ease, transform 0.3s ease;
-    }
-    .menu a:hover {
-      background: rgba(255,255,255,0.3);
-      transform: scale(1.1);
-    }
+    .menu-container { position: fixed; top: 20px; right: 20px; z-index: 200; }
+    .menu-icon { font-size: 2em; cursor: pointer; display: none; color: white; }
+    .menu { display: flex; gap: 20px; position: absolute; top: 0; right: 0; z-index: 200; }
+    .menu a { color: white; text-decoration: none; font-weight: bold; padding: 5px 10px; border-radius: 10px; transition: background 0.3s, transform 0.3s; }
+    .menu a:hover { background: rgba(255,255,255,0.3); transform: scale(1.1); }
     #menu-toggle { display: none; }
     @media (max-width: 800px) {
-      .menu {
-        position: fixed;
-        top: 70px;
-        right: 0;
-        background: rgba(255,105,180,0.95);
-        flex-direction: column;
-        width: 220px;
-        display: none;
-        padding: 10px;
-        border-radius: 0 0 15px 15px;
-      }
-      #menu-toggle:checked + .menu-icon + .menu {
-        display: flex;
-      }
+      .menu { position: fixed; top: 70px; right: 0; background: rgba(255,105,180,0.95); flex-direction: column; width: 220px; display: none; padding: 10px; border-radius: 0 0 15px 15px; }
+      #menu-toggle:checked + .menu-icon + .menu { display: flex; }
       .menu-icon { display: block; }
     }
-    @media (max-width: 600px) {
-      header h1 { font-size: 2em; }
-    }
+    @media (max-width: 600px) { header h1 { font-size: 2em; } }
 
-    /* Cœurs fixes en arrière-plan */
-    .fixed-hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: 0;
-      overflow: hidden;
-    }
-    .fixed-hearts .heart {
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #FF69B4;
-      transform: rotate(45deg);
-      border-radius: 3px;
-      opacity: 0.15;
-    }
-    .fixed-hearts .heart::before, .fixed-hearts .heart::after {
-      content: "";
-      position: absolute;
-      width: 30px;
-      height: 30px;
-      background: #FF69B4;
-      border-radius: 50%;
-    }
-    .fixed-hearts .heart::before { top: -15px; left: 0; }
-    .fixed-hearts .heart::after { left: 15px; top: 0; }
+    /* Cœurs fixes */
+    .fixed-hearts { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:0; overflow:hidden; }
+    .fixed-hearts .heart { position:absolute; width:30px; height:30px; background:#FF69B4; transform:rotate(45deg); border-radius:3px; opacity:0.15; }
+    .fixed-hearts .heart::before, .fixed-hearts .heart::after { content:""; position:absolute; width:30px; height:30px; background:#FF69B4; border-radius:50%; }
+    .fixed-hearts .heart::before { top:-15px; left:0; }
+    .fixed-hearts .heart::after { left:15px; top:0; }
   </style>
 </head>
 <body>
 
-  <!-- Cœurs fixes en arrière-plan -->
-  <div class="fixed-hearts"></div>
+<div class="fixed-hearts"></div>
 
-  <header>
-    <h1>Léa & Timéo ❤️</h1>
-    <p>Breaking Love News : c’est officiel !</p>
+<header>
+  <h1>Léa & Timéo ❤️</h1>
+  <p>Breaking Love News : c’est officiel !</p>
 
-    <!-- Menu hamburger -->
-    <div class="menu-container">
-      <input type="checkbox" id="menu-toggle">
-      <label for="menu-toggle" class="menu-icon">&#9776;</label>
-      <nav class="menu">
-        <a href="#story">Leur rencontre</a>
-        <a href="#photos">Leurs photos</a>
-        <a href="#messages">Leurs messages</a>
-        <a href="#dreams">Leurs rêves</a>
-      </nav>
+  <div class="menu-container">
+    <input type="checkbox" id="menu-toggle">
+    <label for="menu-toggle" class="menu-icon">&#9776;</label>
+    <nav class="menu">
+      <a href="#story">Leur rencontre</a>
+      <a href="#photos">Leurs photos</a>
+      <a href="#preferences">Préférences</a>
+      <a href="#messages">Leurs messages</a>
+      <a href="#dreams">Leurs rêves</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- Photos classiques -->
+  <section id="photos" class="photos">
+    <h2>Leurs photos</h2>
+    <img src="images/IMG_5282.png" alt="Photo 1">
+    <img src="images/IMG_5283.jpg" alt="Photo 2">
+    <img src="images/IMG_5463.jpg" alt="Photo 3">
+    <img src="images/IMG_5510.jpg" alt="Photo 4">
+    <img src="images/IMG_5625.jpg" alt="Photo 5">
+    <img src="images/IMG_5726.jpg" alt="Photo 6">
+    <img src="images/IMG_5810.jpg" alt="Photo 7">
+    <img src="images/IMG_5849.png" alt="Photo 9">
+    <img src="images/IMG_5954.jpg" alt="Photo 11">
+    <img src="images/IMG_5987.jpg" alt="Photo 13">
+    <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 14">
+  </section>
+
+  <!-- Préférences -->
+  <section id="preferences">
+    <h2>Nos youtubeurs préférés</h2>
+    <div class="preferences">
+      <img src="images/IMG_5989.jpg" alt="Youtubeur préféré Timéo">
+      <img src="images/IMG_5993.jpg" alt="Youtubeuse préférée Léa">
     </div>
-  </header>
 
-  <main>
-    <section id="story">
-      <h2>Leur rencontre</h2>
-      <p>Tout commence grâce à… un ami jaloux. Léa était au lycée avec un très bon ami de Timéo. Un jour, elle lui dit qu’elle trouve Timéo mignon et qu’elle aimerait lui parler. Réaction de l’ami : comme si Timéo venait lui voler son crush. Le roi de la jalousie.</p>
-      <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker. Un move légendaire.</p>
-      <p>Timéo répond immédiatement. Et ensuite… ils ne se sont plus lâchés de la soirée. Ils se sont appelés. Ils n’ont presque pas dormi. Et pour Timéo, c’était probablement la plus belle nuit de sa vie.</p>
-      <p>Le lendemain, Léa part au scouts pour le week-end. Pour Timéo ? Le pire week-end de sa vie. Ils se connaissent depuis moins d’une journée, mais il ne pense qu’à une chose : qu’elle revienne.</p>
-      <p>Et quand elle revient ? Cinéma, sorties, moments incroyables, et chaque fois ils se rapprochent encore plus.</p>
-      <p>Le <strong>3 octobre 2025</strong>, Léa et Timéo officialisent leur couple. Aujourd’hui, cela fait <strong>2 mois et 4 jours</strong> et ils sont littéralement inséparables ❤️</p>
-    </section>
+    <h2>Nos artistes préférés (Spotify)</h2>
+    <div class="preferences">
+      <img src="images/IMG_5944.jpg" alt="Artiste préféré Timéo 1">
+      <img src="images/IMG_5990.jpg" alt="Artiste préféré Timéo 2">
+      <img src="images/IMG_5991.jpg" alt="Artiste préférée Léa 1">
+      <img src="images/IMG_5992.jpg" alt="Artiste préférée Léa 2">
+    </div>
+  </section>
 
-    <section id="photos" class="photos">
-      <h2>Leurs photos</h2>
-      <p>Voici quelques photos de Léa & Timéo :</p>
-      <img src="images/IMG_5282.png" alt="Photo 1">
-      <img src="images/IMG_5283.jpg" alt="Photo 2">
-      <img src="images/IMG_5463.jpg" alt="Photo 3">
-      <img src="images/IMG_5510.jpg" alt="Photo 4">
-      <img src="images/IMG_5625.jpg" alt="Photo 5">
-      <img src="images/IMG_5726.jpg" alt="Photo 6">
-      <img src="images/IMG_5810.jpg" alt="Photo 7">
-      <img src="images/IMG_5849.png" alt="Photo 9">
-      <img src="images/IMG_5954.jpg" alt="Photo 11">
-      <img src="images/IMG_5987.jpg" alt="Photo 13">
-      <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 14">
-    </section>
+  <!-- Instagram et playlist -->
+  <section id="instagram">
+    <h2>Nos Instagram</h2>
+    <p><a href="https://www.instagram.com/l12leaa/" target="_blank">Instagram de Léa</a></p>
+    <p><a href="https://www.instagram.com/t_idd._/" target="_blank">Instagram de Timéo</a></p>
+  </section>
 
-    <section id="messages">
-      <h2>Leurs messages</h2>
-      <p><strong>Timéo :</strong> "Promis, je prendrai soin de Léa. Merci beaucoup de l'avoir rendue telle qu'elle est aujourd'hui, c'est une fille en or."</p>
-      <p><strong>Léa :</strong> "Je serais toujours là, supportrice numéro 1 de Timéo, et je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️"</p>
-    </section>
+  <section id="music">
+    <h2>Notre playlist</h2>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8" width="100%" height="380" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+  </section>
 
-    <section id="dreams">
-      <h2>Leurs rêves</h2>
-      <p>Avoir un mariage de mafieux, 2 enfants, voitures de luxe, un château, un malinois, faire énormément de voyages.</p>
-    </section>
+  <!-- Messages, rêves, citation et annonce -->
+  <section id="messages">
+    <h2>Leurs messages</h2>
+    <p><strong>Timéo :</strong> "Promis, je prendrai soin de Léa. Merci beaucoup de l'avoir rendue telle qu'elle est aujourd'hui, c'est une fille en or."</p>
+    <p><strong>Léa :</strong> "Je serais toujours là, supportrice numéro 1 de Timéo, et je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️"</p>
+  </section>
 
-    <!-- Citation inspirante -->
-    <section class="quote">
-      <h2>Une citation pour nous</h2>
-      <p style="font-style:italic; text-align:center; color:#FF6B6B;">
-        “L’amour ne consiste pas à se regarder l’un l’autre, mais à regarder ensemble dans la même direction.” – Antoine de Saint-Exupéry
-      </p>
-    </section>
+  <section id="dreams">
+    <h2>Leurs rêves</h2>
+    <p>Avoir un mariage de mafieux, 2 enfants, voitures de luxe, un château, un malinois, faire énormément de voyages.</p>
+  </section>
 
-    <section id="announcement">
-      <h2>L’annonce officielle</h2>
-      <p>C’est officiel : Léa & Timéo sont en couple !</p>
-      <p>Pas de suspense. Pas de cliffhanger. Juste deux personnes qui se sont trouvées et qui avaient envie de l’annoncer de façon spéciale à la famille.</p>
-    </section>
+  <section class="quote">
+    <h2>Une citation pour nous</h2>
+    <p style="font-style:italic; text-align:center; color:#FF6B6B;">
+      “L’amour ne consiste pas à se regarder l’un l’autre, mais à regarder ensemble dans la même direction.” – Antoine de Saint-Exupéry
+    </p>
+  </section>
 
-    <!-- Instagram -->
-    <section id="instagram">
-      <h2>Nos Instagram</h2>
-      <p><a href="https://www.instagram.com/l12leaa/" target="_blank">Instagram de Léa</a></p>
-      <p><a href="https://www.instagram.com/t_idd._/" target="_blank">Instagram de Timéo</a></p>
-    </section>
+  <section id="announcement">
+    <h2>L’annonce officielle</h2>
+    <p>C’est officiel : Léa & Timéo sont en couple !</p>
+    <p>Pas de suspense. Pas de cliffhanger. Juste deux personnes qui se sont trouvées et qui avaient envie de l’annoncer de façon spéciale à la famille.</p>
+  </section>
+</main>
 
-    <!-- Playlist Spotify -->
-    <section id="music">
-      <h2>Notre playlist</h2>
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8" width="100%" height="380" frameborder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
-    </section>
+<footer>
+  Merci d’être là pour partager ce moment ❤️
+</footer>
 
-  </main>
+<script>
+  // Fade-in au scroll
+  const sections = document.querySelectorAll('section');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting) entry.target.classList.add('visible');
+    });
+  }, { threshold: 0.1 });
+  sections.forEach(section => observer.observe(section));
 
-  <footer>
-    Merci d’être là pour partager ce moment ❤️
-  </footer>
-
-  <script>
-    // Fade-in au scroll
-    const sections = document.querySelectorAll('section');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) entry.target.classList.add('visible');
-      });
-    }, { threshold: 0.1 });
-    sections.forEach(section => observer.observe(section));
-
-    // Cœurs fixes
-    const fixedHeartsContainer = document.querySelector('.fixed-hearts');
-    for(let i=0; i<50; i++){
-      const heart = document.createElement('div');
-      heart.classList.add('heart');
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.top = Math.random() * 100 + 'vh';
-      const size = 10 + Math.random() * 30;
-      heart.style.width = heart.style.height = size + 'px';
-      fixedHeartsContainer.appendChild(heart);
-    }
-  </script>
+  // Cœurs fixes
+  const fixedHeartsContainer = document.querySelector('.fixed-hearts');
+  for(let i=0;i<50;i++){
+    const heart=document.createElement('div');
+    heart.classList.add('heart');
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.top=Math.random()*100+'vh';
+    const size=10+Math.random()*30;
+    heart.style.width=heart.style.height=size+'px';
+    fixedHeartsContainer.appendChild(heart);
+  }
+</script>
 
 </body>
 </html>
