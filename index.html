@@ -221,7 +221,6 @@
   <div class="hearts-container"></div>
 
   <script>
-    // Génération des cœurs
     const heartsContainer = document.querySelector('.hearts-container');
     for(let i=0;i<25;i++){
       let heart = document.createElement('div');
@@ -235,7 +234,7 @@
 </header>
 
 <main>
-  <section id="story" class="story">
+  <section id="story">
     <h2>Leur rencontre</h2>
     <p>Tout commence grâce à… un ami jaloux. Léa était au lycée avec un très bon ami de Timéo. Un jour, elle lui dit qu’elle trouve Timéo mignon et qu’elle aimerait lui parler. Réaction de l’ami : comme si Timéo venait lui voler son crush. Le roi de la jalousie.</p>
     <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker. Un move légendaire.</p>
@@ -248,34 +247,35 @@
   <section id="photos" class="photos">
     <h2>Leurs photos</h2>
     <p>Voici quelques photos de Léa & Timéo :</p>
-    <img src="IMG_5282.png" alt="Photo 1">
-    <img src="IMG_5283.jpg" alt="Photo 2">
-    <img src="IMG_5463.jpg" alt="Photo 3">
-    <img src="IMG_5510.jpg" alt="Photo 4">
-    <img src="IMG_5625.jpg" alt="Photo 5">
-    <img src="IMG_5726.jpg" alt="Photo 6">
-    <img src="IMG_5810.jpg" alt="Photo 7">
-    <img src="IMG_5812.jpg" alt="Photo 8">
-    <img src="IMG_5849.png" alt="Photo 9">
-    <img src="IMG_5949.jpg" alt="Photo 10">
-    <img src="IMG_5954.jpg" alt="Photo 11">
-    <img src="IMG_5967.jpg" alt="Photo 12">
-    <img src="IMG_5987.jpg" alt="Photo 13">
-    <img src="da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 14">
+    <!-- Images dans le dossier "images" -->
+    <img src="images/IMG_5282.png" alt="Photo 1">
+    <img src="images/IMG_5283.jpg" alt="Photo 2">
+    <img src="images/IMG_5463.jpg" alt="Photo 3">
+    <img src="images/IMG_5510.jpg" alt="Photo 4">
+    <img src="images/IMG_5625.jpg" alt="Photo 5">
+    <img src="images/IMG_5726.jpg" alt="Photo 6">
+    <img src="images/IMG_5810.jpg" alt="Photo 7">
+    <img src="images/IMG_5812.jpg" alt="Photo 8">
+    <img src="images/IMG_5849.png" alt="Photo 9">
+    <img src="images/IMG_5949.jpg" alt="Photo 10">
+    <img src="images/IMG_5954.jpg" alt="Photo 11">
+    <img src="images/IMG_5967.jpg" alt="Photo 12">
+    <img src="images/IMG_5987.jpg" alt="Photo 13">
+    <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="Photo 14">
   </section>
 
-  <section id="messages" class="messages">
+  <section id="messages">
     <h2>Leurs messages</h2>
     <p><strong>Timéo :</strong> "Promis, je prendrai soin de Léa. Merci beaucoup de l'avoir rendue telle qu'elle est aujourd'hui, c'est une fille en or."</p>
     <p><strong>Léa :</strong> "L'amour, c'est comme la tequila : une fois que tu y as goûté, tu ne peux plus t'en passer."</p>
   </section>
 
-  <section id="dreams" class="dreams">
+  <section id="dreams">
     <h2>Leurs rêves</h2>
     <p>Avoir un mariage de mafieux, 2 enfants, voitures de luxe, un château, un malinois, faire énormément de voyages.</p>
   </section>
 
-  <section id="announcement" class="announcement">
+  <section id="announcement">
     <h2>L’annonce officielle</h2>
     <p>C’est officiel : Léa & Timéo sont en couple !</p>
     <p>Pas de suspense. Pas de cliffhanger. Juste deux personnes qui se sont trouvées et qui avaient envie de l’annoncer de façon spéciale à la famille.</p>
@@ -287,7 +287,7 @@
 </footer>
 
 <script>
-  // Fade-in sections au scroll
+  // Fade-in sections
   const sections = document.querySelectorAll('section');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
