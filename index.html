@@ -6,7 +6,6 @@
   <title>Léa & Timéo ❤️ Breaking Love News</title>
 
   <style>
-    /* --- RESET & BASE --- */
     * { margin:0; padding:0; box-sizing:border-box; }
     body {
       font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -16,7 +15,7 @@
       position:relative;
     }
 
-    /* --- ARRIÈRE-PLAN COEURS --- */
+    /* COEURS FOND */
     .hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
     .hearts span {
       position:absolute; display:block; font-size:24px; animation:float 6s linear infinite; opacity:0.5;
@@ -26,7 +25,7 @@
       100% { transform:translateY(-100vh) rotate(360deg); opacity:0; }
     }
 
-    /* --- HEADER --- */
+    /* HEADER */
     header {
       text-align:center; padding:60px 20px;
       background:linear-gradient(90deg, #FF9EB4, #FF6B6B);
@@ -35,58 +34,43 @@
     header h1 { font-size:3rem; margin-bottom:10px; }
     header p { font-size:1.2rem; }
 
-    /* --- MENU HAMBURGER --- */
+    /* MENU HAMBURGER */
     .menu-btn {
-      position:fixed;
-      right:20px;
-      top:20px;
-      font-size:32px;
-      cursor:pointer;
-      z-index:1000;
-      background:#FF6B6B;
-      color:white;
-      border:none;
-      border-radius:8px;
-      padding:5px 12px;
+      position:fixed; right:20px; top:20px;
+      font-size:32px; cursor:pointer; z-index:1000;
+      background:#FF6B6B; color:white; border:none; border-radius:8px; padding:5px 12px;
     }
     nav {
-      position:fixed;
-      top:0; right:-70%;
-      width:70%; height:100%;
-      background:white; padding-top:80px;
-      transition:0.3s; box-shadow:-3px 0 10px rgba(0,0,0,0.1);
-      z-index:999;
+      position:fixed; top:0; right:-70%;
+      width:70%; height:100%; background:white; padding-top:80px;
+      transition:0.3s; box-shadow:-3px 0 10px rgba(0,0,0,0.1); z-index:999;
     }
     nav.open { right:0; }
     nav a {
-      display:block; padding:18px 25px;
-      font-size:1.1rem; font-weight:bold;
-      color:#FF6B6B; text-decoration:none;
-      border-bottom:1px solid #FFE3E7;
+      display:block; padding:18px 25px; font-size:1.1rem; font-weight:bold;
+      color:#FF6B6B; text-decoration:none; border-bottom:1px solid #FFE3E7;
     }
 
-    /* --- SECTIONS --- */
+    /* SECTIONS */
     section { margin:40px auto; padding:20px; max-width:900px; opacity:0; transform:translateY(30px); transition:0.8s ease; }
     section.visible { opacity:1; transform:translateY(0); }
     section h2 { color:#FF6B6B; border-left:5px solid #FF6B6B; padding-left:10px; margin-bottom:15px; font-size:1.8rem; }
     section h3 { color:#FF6B6B; margin-top:20px; }
     p { line-height:1.6; margin-bottom:12px; }
 
-    /* --- GRILLES IMAGES --- */
-    .photo-grid, .prefs-grid {
+    /* GRILLES IMAGES */
+    .photo-grid, .prefs-grid, .other-grid {
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(230px,1fr));
       gap:15px;
     }
-    .photo-grid img, .prefs-grid img { width:100%; height:auto; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12); }
+    .photo-grid img, .prefs-grid img, .other-grid img { width:100%; height:auto; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12); }
 
-    /* --- FOOTER --- */
     footer { text-align:center; padding:25px; background:#FF9EB4; color:white; margin-top:40px; }
 
-    /* --- MEDIA QUERIES --- */
     @media (max-width:600px){
       header h1 { font-size:2rem; }
-      .photo-grid, .prefs-grid { grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); }
+      .photo-grid, .prefs-grid, .other-grid { grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); }
     }
   </style>
 
@@ -99,9 +83,7 @@
       const trigger = window.innerHeight / 1.2;
       sections.forEach(section => {
         const sectionTop = section.getBoundingClientRect().top;
-        if(sectionTop < trigger){
-          section.classList.add('visible');
-        }
+        if(sectionTop < trigger){ section.classList.add('visible'); }
       });
     });
   </script>
@@ -109,7 +91,7 @@
 
 <body>
 
-  <!-- COEURS FOND -->
+  <!-- COEURS -->
   <div class="hearts">
     <span style="left:10%; animation-delay:0s;">❤️</span>
     <span style="left:20%; animation-delay:1s;">💖</span>
@@ -120,7 +102,7 @@
     <span style="left:90%; animation-delay:1.5s;">💖</span>
   </div>
 
-  <!-- MENU HAMBURGER -->
+  <!-- MENU -->
   <button class="menu-btn" onclick="toggleMenu()">☰</button>
   <nav>
     <a href="#histoire">Leur rencontre</a>
@@ -190,16 +172,24 @@
   <!-- YOUTUBEURS PREFERES -->
   <section id="youtube">
     <h2>Youtubeurs préférés</h2>
-    <h3>Timéo</h3>
-    <img src="images/IMG_5989.png" alt="Youtubeurs préférés de Timéo">
-    <h3>Léa</h3>
-    <img src="images/IMG_5993.jpg" alt="Youtubeurs préférés de Léa">
+    <div class="other-grid">
+      <h3>Timéo</h3>
+      <img src="images/IMG_5989.png" alt="Youtubeurs préférés de Timéo">
+      <h3>Léa</h3>
+      <img src="images/IMG_5993.jpg" alt="Youtubeurs préférés de Léa">
+    </div>
   </section>
 
   <!-- SPOTIFY -->
   <section id="spotify">
     <h2>Playlist Spotify</h2>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
+    <div class="other-grid">
+      <img src="images/IMG_5944.png" alt="Playlist Timéo 1">
+      <img src="images/IMG_5990.jpg" alt="Playlist Timéo 2">
+      <img src="images/IMG_5991.jpg" alt="Playlist Léa 1">
+      <img src="images/IMG_5992.jpg" alt="Playlist Léa 2">
+    </div>
+    <iframe style="border-radius:12px; margin-top:10px;" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
   </section>
 
   <!-- MESSAGES -->
