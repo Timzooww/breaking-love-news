@@ -7,157 +7,86 @@
 
   <style>
     /* --- RESET & BASE --- */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    * { margin:0; padding:0; box-sizing:border-box; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #FFF5F7;
-      color: #333;
-      overflow-x: hidden;
-      position: relative;
+      font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color:#FFF5F7;
+      color:#333;
+      overflow-x:hidden;
+      max-width:1000px; /* largeur max pour PC */
+      margin:0 auto; /* centre le site */
+      position:relative;
     }
 
     /* --- ARRIÈRE-PLAN COEURS --- */
-    .hearts {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      z-index: -1;
-      overflow: hidden;
-    }
-
+    .hearts { position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1; overflow:hidden; }
     .hearts span {
-      position: absolute;
-      display: block;
-      font-size: 24px;
-      animation: float 6s linear infinite;
-      opacity: 0.5;
+      position:absolute; display:block; font-size:24px; animation:float 6s linear infinite; opacity:0.5;
     }
-
     @keyframes float {
-      0% { transform: translateY(0) rotate(0deg); opacity: 0.5; }
-      100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+      0% { transform:translateY(0) rotate(0deg); opacity:0.5; }
+      100% { transform:translateY(-100vh) rotate(360deg); opacity:0; }
     }
 
     /* --- HEADER --- */
     header {
-      text-align: center;
-      padding: 60px 20px;
-      background: linear-gradient(90deg, #FF9EB4, #FF6B6B);
-      color: white;
+      text-align:center; padding:60px 20px;
+      background:linear-gradient(90deg, #FF9EB4, #FF6B6B);
+      color:white;
     }
+    header h1 { font-size:3rem; margin-bottom:10px; }
+    header p { font-size:1.2rem; }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-    }
-
-    header p {
-      font-size: 1.2rem;
-    }
-
-    /* --- MENU --- */
+    /* --- MENU HAMBURGER --- */
     .menu-btn {
-      position: fixed;
-      right: 20px;
-      top: 20px;
-      font-size: 32px;
-      cursor: pointer;
-      z-index: 1000;
-      background: #FF6B6B;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 5px 12px;
+      position:fixed;
+      right:20px;
+      top:20px;
+      font-size:28px;
+      cursor:pointer;
+      z-index:1000;
+      background:#FF6B6B;
+      color:white;
+      border:none;
+      border-radius:8px;
+      padding:5px 12px;
     }
-
     nav {
-      position: fixed;
-      top: 0;
-      right: -70%;
-      width: 70%;
-      height: 100%;
-      background: white;
-      padding-top: 80px;
-      transition: 0.3s;
-      box-shadow: -3px 0 10px rgba(0,0,0,0.1);
-      z-index: 999;
+      position:fixed;
+      top:0; right:-70%;
+      width:70%; height:100%;
+      background:white; padding-top:80px;
+      transition:0.3s; box-shadow:-3px 0 10px rgba(0,0,0,0.1);
+      z-index:999;
     }
-
-    nav.open {
-      right: 0;
-    }
-
+    nav.open { right:0; }
     nav a {
-      display: block;
-      padding: 18px 25px;
-      font-size: 1.1rem;
-      text-decoration: none;
-      color: #FF6B6B;
-      font-weight: bold;
-      border-bottom: 1px solid #FFE3E7;
+      display:block; padding:18px 25px;
+      font-size:1.1rem; font-weight:bold;
+      color:#FF6B6B; text-decoration:none;
+      border-bottom:1px solid #FFE3E7;
     }
 
     /* --- SECTIONS --- */
-    section {
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 20px;
-    }
+    section { margin:40px auto; padding:20px; }
+    section h2 { color:#FF6B6B; border-left:5px solid #FF6B6B; padding-left:10px; margin-bottom:15px; font-size:1.8rem; }
+    section h3 { color:#FF6B6B; margin-top:20px; }
+    p { line-height:1.6; margin-bottom:12px; }
 
-    section h2 {
-      color: #FF6B6B;
-      border-left: 5px solid #FF6B6B;
-      padding-left: 10px;
-      margin-bottom: 15px;
-      font-size: 1.8rem;
-    }
-
-    section h3 {
-      color: #FF6B6B;
-      margin-top: 20px;
-    }
-
-    p {
-      line-height: 1.6;
-      margin-bottom: 12px;
-    }
-
-    /* --- PHOTOS & GRILLE --- */
+    /* --- GRILLES IMAGES --- */
     .photo-grid, .prefs-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 15px;
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(180px,1fr));
+      gap:15px;
     }
-
-    .photo-grid img, .prefs-grid img {
-      width: 100%;
-      height: auto;
-      border-radius: 14px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.12);
-    }
+    .photo-grid img, .prefs-grid img { width:100%; height:auto; border-radius:14px; box-shadow:0 4px 10px rgba(0,0,0,0.12); }
 
     /* --- FOOTER --- */
-    footer {
-      text-align: center;
-      padding: 25px;
-      background: #FF9EB4;
-      color: white;
-      margin-top: 40px;
-    }
+    footer { text-align:center; padding:25px; background:#FF9EB4; color:white; margin-top:40px; }
   </style>
 
   <script>
-    function toggleMenu() {
-      document.querySelector("nav").classList.toggle("open");
-    }
+    function toggleMenu() { document.querySelector("nav").classList.toggle("open"); }
   </script>
 </head>
 
@@ -174,7 +103,7 @@
     <span style="left:90%; animation-delay:1.5s;">💖</span>
   </div>
 
-  <!-- MENU -->
+  <!-- MENU HAMBURGER -->
   <button class="menu-btn" onclick="toggleMenu()">☰</button>
   <nav>
     <a href="#histoire">Leur rencontre</a>
