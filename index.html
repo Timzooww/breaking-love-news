@@ -72,12 +72,48 @@
       header h1 { font-size:2rem; }
       .photo-grid, .prefs-grid, .other-grid { grid-template-columns:repeat(auto-fit, minmax(150px,1fr)); }
     }
+
+    /* COMMENTAIRES */
+    #comments-box {
+      margin-top:25px;
+      padding:15px;
+      background:white;
+      border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .comment {
+      padding:10px 0;
+      border-bottom:1px solid #eee;
+    }
+
+    .comment strong { color:#FF6B6B; }
+
+    #comment-form input, #comment-form textarea {
+      width:100%;
+      padding:10px;
+      margin-bottom:10px;
+      border:1px solid #FFB5C5;
+      border-radius:8px;
+      font-size:1rem;
+    }
+
+    #comment-form button {
+      background:#FF6B6B;
+      color:white;
+      border:none;
+      padding:10px 15px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:1rem;
+      font-weight:bold;
+    }
   </style>
 
   <script>
     function toggleMenu(){ document.querySelector("nav").classList.toggle("open"); }
 
-    // Fade-in sections on scroll
+    // Fade-in sections
     window.addEventListener('scroll', () => {
       const sections = document.querySelectorAll('section');
       const trigger = window.innerHeight / 1.2;
@@ -87,6 +123,64 @@
       });
     });
   </script>
+
+  <!-- FIREBASE -->
+  <script type="module">
+    // Import Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, query, orderBy, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    // CONFIG (celle que tu m'as donnée)
+    const firebaseConfig = {
+      apiKey: "AIzaSyAU6SetTE7GYNEcHkwHW1WAjVFAC9uVfoI",
+      authDomain: "ytwebsite-7e45a.firebaseapp.com",
+      projectId: "ytwebsite-7e45a",
+      storageBucket: "ytwebsite-7e45a.appspot.com",
+      messagingSenderId: "870992476297",
+      appId: "1:870992476297:web:7f94cbe97d269ebafbda79"
+    };
+
+    // INIT FIREBASE
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // AJOUT COMMENTAIRE
+    window.addComment = async function () {
+      const name = document.getElementById("comment-name").value.trim();
+      const message = document.getElementById("comment-message").value.trim();
+
+      if(!name || !message){
+        alert("Merci de remplir tous les champs !");
+        return;
+      }
+
+      await addDoc(collection(db, "comments"), {
+        name,
+        message,
+        date: new Date()
+      });
+
+      document.getElementById("comment-name").value = "";
+      document.getElementById("comment-message").value = "";
+    };
+
+    // CHARGER COMMENTAIRES EN DIRECT
+    const q = query(collection(db, "comments"), orderBy("date", "desc"));
+    onSnapshot(q, (snapshot) => {
+      const container = document.getElementById("comments-list");
+      container.innerHTML = "";
+      snapshot.forEach(doc => {
+        const c = doc.data();
+        container.innerHTML += `
+          <div class="comment">
+            <strong>${c.name}</strong><br>
+            ${c.message}
+          </div>
+        `;
+      });
+    });
+  </script>
+
 </head>
 
 <body>
@@ -125,78 +219,85 @@
   <!-- HISTOIRE -->
   <section id="histoire">
     <h2>Leur rencontre</h2>
-    <p>Tout commence grâce à un ami jaloux. Léa était au lycée avec un très bon ami de Timéo. Un jour, elle lui dit qu’elle trouve Timéo mignon et qu’elle aimerait lui parler. Réaction de l’ami : comme si Timéo venait lui voler son crush. Le roi de la jalousie.</p>
-    <p>Alors Léa, avec son humour iconique, décide d’envoyer à Timéo… une image du Joker. Un move légendaire.</p>
-    <p>Timéo répond immédiatement. Et ensuite… ils ne se sont plus lâchés de la soirée. Ils se sont appelés. Ils n’ont presque pas dormi. Et pour Timéo, c’était probablement la plus belle nuit de sa vie.</p>
-    <p>Le lendemain, Léa part au scouts pour le week-end. Pour Timéo ? Le pire week-end de sa vie. Ils se connaissent depuis moins d’une journée, mais il ne pense qu’à une chose : qu’elle revienne.</p>
-    <p>Et quand elle revient ? Cinéma, sorties, moments incroyables, et chaque fois ils se rapprochent encore plus.</p>
-    <p>Le <strong>3 octobre 2025</strong>, Léa et Timéo officialisent leur couple. Aujourd’hui, cela fait <strong>2 mois et 4 jours</strong> et ils sont littéralement inséparables ❤️</p>
+    <p>Tout commence grâce à un ami jaloux...</p>
   </section>
 
   <!-- PHOTOS -->
   <section id="photos">
     <h2>Leurs photos</h2>
     <div class="photo-grid">
-      <img src="images/IMG_5282.png" alt="">
-      <img src="images/IMG_5283.jpg" alt="">
-      <img src="images/IMG_5463.jpg" alt="">
-      <img src="images/IMG_5510.jpg" alt="">
-      <img src="images/IMG_5625.jpg" alt="">
-      <img src="images/IMG_5726.jpg" alt="">
-      <img src="images/IMG_5810.jpg" alt="">
-      <img src="images/IMG_5812.jpg" alt="">
-      <img src="images/IMG_5849.png" alt="">
-      <img src="images/IMG_5949.jpg" alt="">
-      <img src="images/IMG_5954.jpg" alt="">
-      <img src="images/IMG_5967.jpg" alt="">
-      <img src="images/IMG_5987.jpg" alt="">
-      <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg" alt="">
+      <img src="images/IMG_5282.png">
+      <img src="images/IMG_5283.jpg">
+      <img src="images/IMG_5463.jpg">
+      <img src="images/IMG_5510.jpg">
+      <img src="images/IMG_5625.jpg">
+      <img src="images/IMG_5726.jpg">
+      <img src="images/IMG_5810.jpg">
+      <img src="images/IMG_5812.jpg">
+      <img src="images/IMG_5849.png">
+      <img src="images/IMG_5949.jpg">
+      <img src="images/IMG_5954.jpg">
+      <img src="images/IMG_5967.jpg">
+      <img src="images/IMG_5987.jpg">
+      <img src="images/da07d942-1e39-4a2d-be27-7bc8b5ad9635.jpg">
     </div>
   </section>
 
-  <!-- ARTISTES PREFERES -->
+  <!-- ARTISTES -->
   <section id="artistes">
     <h2>Artistes préférés</h2>
     <h3>Timéo</h3>
     <div class="prefs-grid">
-      <img src="images/IMG_5944.png" alt="Artiste préféré de Timéo 1">
-      <img src="images/IMG_5990.jpg" alt="Artiste préféré de Timéo 2">
+      <img src="images/IMG_5944.png">
+      <img src="images/IMG_5990.jpg">
     </div>
     <h3>Léa</h3>
     <div class="prefs-grid">
-      <img src="images/IMG_5991.jpg" alt="Artiste préféré de Léa 1">
-      <img src="images/IMG_5992.jpg" alt="Artiste préféré de Léa 2">
+      <img src="images/IMG_5991.jpg">
+      <img src="images/IMG_5992.jpg">
     </div>
   </section>
 
-  <!-- YOUTUBEURS PREFERES -->
+  <!-- YOUTUBE -->
   <section id="youtube">
     <h2>Youtubeurs préférés</h2>
     <div class="other-grid">
       <h3>Timéo</h3>
-      <img src="images/IMG_5989.png" alt="Youtubeurs préférés de Timéo">
+      <img src="images/IMG_5989.png">
       <h3>Léa</h3>
-      <img src="images/IMG_5993.jpg" alt="Youtubeurs préférés de Léa">
+      <img src="images/IMG_5993.jpg">
     </div>
   </section>
 
   <!-- SPOTIFY -->
   <section id="spotify">
     <h2>Playlist Spotify</h2>
-    <div class="other-grid">
-      <img src="images/IMG_5944.png" alt="Playlist Timéo 1">
-      <img src="images/IMG_5990.jpg" alt="Playlist Timéo 2">
-      <img src="images/IMG_5991.jpg" alt="Playlist Léa 1">
-      <img src="images/IMG_5992.jpg" alt="Playlist Léa 2">
-    </div>
-    <iframe style="border-radius:12px; margin-top:10px;" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" loading="lazy"></iframe>
+
+    <!-- IMAGES SUPPRIMÉES COMME DEMANDÉ -->
+
+    <iframe style="border-radius:12px; margin-top:10px;" src="https://open.spotify.com/embed/playlist/6w5hHq4yNRYPpw4irlZtP8?utm_source=generator" width="100%" height="152" frameBorder="0" loading="lazy"></iframe>
   </section>
 
-  <!-- MESSAGES -->
+  <!-- MESSAGES (AVEC COMMENTAIRES) -->
   <section id="messages">
     <h2>Leurs messages</h2>
-    <p><strong>Message de Timéo :</strong> “Promis je prendrai soin de Léa, merci beaucoup de l’avoir rendue comme elle est aujourd’hui. C’est une fille en or.”</p>
-    <p><strong>Message de Léa :</strong> “Je serai toujours là, supportrice numéro 1 de Timéo. Je l’accompagnerai dans toutes ses épreuves parce que c’est un garçon qui mérite tout le bonheur du monde ❤️”</p>
+
+    <p><strong>Message de Timéo :</strong> “Promis je prendrai soin de Léa...”</p>
+    <p><strong>Message de Léa :</strong> “Je serai toujours là...”</p>
+
+    <!-- *** SYSTEME DE COMMENTAIRES *** -->
+    <div id="comments-box">
+      <h3>Commentaires</h3>
+
+      <div id="comments-list"></div>
+
+      <form id="comment-form" onsubmit="event.preventDefault(); addComment();">
+        <input type="text" id="comment-name" placeholder="Votre nom">
+        <textarea id="comment-message" placeholder="Votre message" rows="4"></textarea>
+        <button type="submit">Envoyer</button>
+      </form>
+    </div>
+
   </section>
 
   <!-- REVES -->
@@ -216,7 +317,7 @@
     <p>“Ce que Dieu a uni, que personne ne le sépare.”</p>
   </section>
 
-  <!-- ANNONCE OFFICIELLE -->
+  <!-- OFFICIEL -->
   <section id="officiel">
     <h2>L’annonce officielle</h2>
     <p>C’est officiel : Léa & Timéo sont en couple ! ❤️</p>
@@ -225,5 +326,6 @@
   <footer>
     Merci d’être là pour partager ce moment ❤️
   </footer>
+
 </body>
 </html>
